@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import styles from "./Detail.module.css";
 
 function Detail() {
   const [loading, setLoading] = useState(true);
@@ -15,23 +16,24 @@ function Detail() {
   useEffect(() => {
     getMovie();
   }, []);
-  console.log(detail);
   return (
     <div>
       {loading ? (
-        <h1>Loading...</h1>
+        <div className={styles.loader}>
+          <h1>Loading...</h1>
+        </div>
       ) : (
-        <div>
+        <div className={styles.detail}>
           <h1>Detail</h1>
-          <div style={{ display: "flex" }}>
+          <div className={styles.detail__info}>
             <img src={detail.medium_cover_image} alt={detail.title} />
             <div style={{ marginLeft: "1rem" }}>
-              <h2>
+              <h2 className={styles.detail__title}>
                 {detail.title} ({detail.year})
               </h2>
-              <p>{detail.description_full}</p>
-              <h3>Genres</h3>
-              <ul>
+              <p className={styles.detail__p}>{detail.description_full}</p>
+              <h3 className={styles.detail__genre_title}>Genres</h3>
+              <ul className={styles.detail__genres}>
                 {detail.genres.map((genre, index) => (
                   <li key={index}>{genre}</li>
                 ))}
@@ -40,7 +42,9 @@ function Detail() {
               <h3>Runtime: {detail.runtime} mins</h3>
             </div>
           </div>
-          <h3>Downloads (Torrent)</h3>
+          <h3 className={styles.detail__download_title}>
+            Direct Downloads (Torrent)
+          </h3>
           <ul>
             {detail.torrents.map((torrent, index) => (
               <li key={index}>
